@@ -1,0 +1,44 @@
+version: '3'
+services:
+  database:
+    image: yobasystems/alpine-mariadb
+    container_name: database-hsh
+    env_file:
+      - .env
+    volumes:
+      - ./db-data:/var/lib/mysql
+    ports:
+      - 3306:3306
+    command: mysqld --default-authentication-plugin=mysql_native_password --sql_mode=""
+    networks:
+        - hsh-network
+
+  application:
+    build: containers/php-8.0.20-fpm
+    container_name: application-hsh
+    hostname: application-hsh
+    working_dir: /var/www/html
+    depends_on:
+        - database
+    volumes:
+        - ./containers/php/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        - ./application:/var/www/html
+    networks:
+        - hsh-network
+
+  webserver:
+    build: containers/nginx
+    container_name: webserver-hsh
+    hostname: webserver-hsh
+    depends_on:
+        - application
+    volumes:
+        - ./application:/var/www/html
+    ports:
+        - "80:80"
+    networks:
+        - hsh-network
+
+networks:
+    hsh-network:
+        driver: bridge
