@@ -1,0 +1,25 @@
+{
+    "name": "lex/hsh",
+    "description": "Sistema de intranet doméstica",
+    "authors": [
+        {
+            "name": "Alex L. Barros",
+            "email": "lex.falconis@gmail.com"
+        }
+    ],
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.0",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.5",
+        "twig/twig": "^1.15"
+    },
+    "autoload": {
+        "psr-4": {
+            "src\\": "src"
+        }
+    }
+}

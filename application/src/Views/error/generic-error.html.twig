@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block head %}
+    <style>
+        body {
+            background-color: #2B323D;
+            text-align: center;
+            color: #FFFFFF;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+    <h2>Eita, ocorreu um erro.</h2>
+    <div class="alert alert-danger" role="alert">
+        {% if mensagem %}
+            <p>{{ mensagem }}</p>
+        {% else %}
+
+            <p>O sistema não sabe como resolver (dev burro não fez isso direito), então, a única alternativa é retornar a
+                home do sistema. Lamento...</p>
+        {% endif %}
+    </div>
+    <a href="/home/index">
+        <button><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Home</button>
+    </a>
+{% endblock %}

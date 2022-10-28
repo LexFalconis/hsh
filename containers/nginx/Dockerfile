@@ -1,6 +1,4 @@
-FROM nginx:1.19.3
-
-LABEL maintainer='Alex L. Barros <lex.falconis@gmail.com>'
+FROM nginx:1.17
 
 # Fix Timezone America/Sao_Paulo
 ENV TZ=America/Sao_Paulo

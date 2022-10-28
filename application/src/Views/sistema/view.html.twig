@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block head %}
+    <style>
+        a, a:active, a:hover {
+            margin: 0px 10px;
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container px-4 px-lg-5 mt-0">
+        <div class="row justify-content-center">
+            <div class="card-body">
+                <dt>ID:</dt>
+                <dd>{{ sistema.id }}</dd>
+                <dt>NOME:</dt>
+                <dd>{{ sistema.nome }}</dd>
+                <dt>LINK:</dt>
+                <dd>{{ sistema.link }} <a href="{{ sistema.link }}" target="_blank"><i
+                                class="fas fa-external-link-alt"></i></a></dd>
+                <dt>DESCRIÇÃO:</dt>
+                <dd>{{ sistema.descricao }}</dd>
+                <dt>STATUS:</dt>
+                <dd>{{ sistema.getStatusToHuman }}</dd>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10"></div>
+            <div class="col-md-1 float-start">
+                <button>
+                    <a href="/sistema/edit/id={{ sistema.id }}">
+                        <i class="fa-regular fa-pen-to-square"></i> Editar
+                    </a>
+                </button>
+            </div>
+            <div class="col-md-1">
+                <button>
+                    <a href="/home/index"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Home
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

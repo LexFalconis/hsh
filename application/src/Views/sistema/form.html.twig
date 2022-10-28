@@ -1,0 +1,92 @@
+{% extends "layout.html.twig" %}
+
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block head %}
+    <style>
+        a, a:active, a:hover {
+            margin: 0px 10px;
+            text-decoration: none;
+            color: #000;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container px-4 px-lg-5 mt-0">
+        <div class="row justify-content-center">
+            {% if sistema.id %}
+                <form method="post" action="/sistema/edit/id={{ sistema.id }}">
+                <input type="hidden" name="id" value="{{ sistema.id }}">
+            {% else %}
+                <form method="post" action="/sistema/insert">
+            {% endif %}
+                <div class="form-group mt-3">
+                    <label for="nome">Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome"
+                           {% if sistema.nome %}value="{{ sistema.nome }}"{% endif %}
+                            maxlength="45"
+                    >
+                </div>
+                <div class="form-group mt-3">
+                    <label for="link">Link</label>
+                    <input type="text" class="form-control" id="link" name="link"
+                           {% if sistema.link %}value="{{ sistema.link }}"{% endif %}
+                            maxlength="255"
+                    >
+                </div>
+                <div class="form-group mt-3">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" class="form-control" id="descricao" name="descricao"
+                           {% if sistema.descricao %}value="{{ sistema.descricao }}"{% endif %}
+                            maxlength="255"
+                    >
+                </div>
+                {% if sistema.id %}
+                    <div class="form-group mt-3">
+                        <label for="status">Status</label>
+                        <select class="form-control" id="status" name="status">
+                            {% for key, stts in sistema.getStatusList %}
+                                <option value="{{ key }}"
+                                        {% if sistema.status == key %}selected{% endif %}
+                                >{{ stts }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endif %}
+                <button type="submit" class="btn btn-primary mt-3">{% if sistema.id %}Editar{% else %}Cadastrar{% endif %}</button>
+            </form>
+        </div>
+    </div>
+    {#        <div class="container px-4 px-lg-5 mt-0"> #}
+    {#            <div class="row justify-content-center"> #}
+    {#                <div class="card-body"> #}
+    {#                    <dt>ID:</dt> #}
+    {#                    <dd>{{ sistema.id }}</dd> #}
+    {#                    <dt>NOME:</dt> #}
+    {#                    <dd>{{ sistema.nome }}</dd> #}
+    {#                    <dt>LINK:</dt> #}
+    {#                    <dd>{{ sistema.link }} <a href="{{ sistema.link }}" target="_blank"><i #}
+    {#                                    class="fas fa-external-link-alt"></i></a></dd> #}
+    {#                    <dt>DESCRIÇÃO:</dt> #}
+    {#                    <dd>{{ sistema.descricao }}</dd> #}
+    {#                    <dt>STATUS:</dt> #}
+    {#                    <dd>{{ sistema.getStatusToHuman }}</dd> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#            <div class="row justify-content-center"> #}
+    {#                <div class="col-md-10"></div> #}
+    {#                <div class="col-md-1 float-start"> #}
+    {#                    <button> #}
+    {#                        <a href="/sistema/edit/id={{ sistema.id }}"> #}
+    {#                            <i class="fa-regular fa-pen-to-square"></i> Editar #}
+    {#                        </a> #}
+    {#                    </button> #}
+    {#                </div> #}
+    {#                <div class="col-md-1"> #}
+    {#                    <button> #}
+    {#                        <a href="/home/index"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Home #}
+    {#                        </a> #}
+    {#                    </button> #}
+    {#                </div> #}
+    {#            </div> #}
+    {#        </div> #}
+{% endblock %}

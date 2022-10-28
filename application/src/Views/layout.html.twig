@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description"
+          content="Home sweet home tem a ideia inicial de centralizar links e informações de como acessar sistemas e softwares de uma rede local em servidor rpi4."/>
+    <meta name="author" content="Alex L. Barros"/>
+    <title>{% block titulo %}{% endblock %}</title>
+    <!-- Bootstrap icons-->
+    <link href="/assets/css/bootstrap-icons.css" rel="stylesheet"/>
+    <!--load all Font Awesome styles https://fontawesome.com/v5/search -->
+    <link href="/assets/fontawesome/css/all.css" rel="stylesheet">
+{#    <!-- conta no fontawesome para os icones -->#}
+{#    <script src="https://kit.fontawesome.com/3a4b1e55a0.js" crossorigin="anonymous"></script>#}
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/assets/css/styles.css" rel="stylesheet"/>
+    {% block head %} {% endblock %}
+</head>
+<body>
+{% include 'partials/header.html.twig' %}
+<!-- Section-->
+<section class="py-5" style="min-height: 500px">
+    {% block content %} {% endblock %}
+</section>
+{% include 'partials/footer.html.twig' %}
+</body>
+</html>
