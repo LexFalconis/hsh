@@ -9,7 +9,7 @@ class BaseController
 {
     protected $url;
     protected $controller;
-    protected $folders = ['admin', 'Site', 'Error'];
+    protected $folders = ['Site', 'Error'];
     protected $twig;
     protected $pdo;
 

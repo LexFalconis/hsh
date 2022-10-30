@@ -15,7 +15,7 @@ class HomeController extends BaseController
             'titulo' => 'Home',
             'sistemas' => $sistemas
         ];
-        $template = $this->twig->loadTemplate('home.html.twig');
-        $template->display($dados);
+        $template = $this->twig->load('home.html.twig');
+        echo $template->render($dados);
     }
 }

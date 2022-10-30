@@ -13,7 +13,7 @@ class GenericErrorController extends BaseController
             'mensagem' => (!empty($_SESSION['mensagem'])) ? $_SESSION['mensagem'] : null
         ];
         unset($_SESSION['mensagem']);
-        $template = $this->twig->loadTemplate('error/generic-error.html.twig');
-        echo $template->display($dados);
+        $template = $this->twig->load('error/generic-error.html.twig');
+        echo $template->render($dados);
     }
 }

@@ -50,6 +50,14 @@ class Sistema
 
     public function persist($dados)
     {
+        if (
+            empty($dados['nome']) || is_null($dados['nome']) ||
+            empty($dados['link']) || is_null($dados['link']) ||
+            empty($dados['descricao']) || is_null($dados['descricao'])
+        ) {
+            throw new \DomainException('Os itens Nome, Link e Descrição precisam estar preenchidos.');
+        }
+
         return (new \src\Dao\Sistema($this->pdo))->persist($dados);
     }
 

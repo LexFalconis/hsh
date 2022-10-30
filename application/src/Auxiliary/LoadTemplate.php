@@ -2,6 +2,9 @@
 
 namespace src\Auxiliary;
 
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 class LoadTemplate
 {
     protected $twig;
@@ -9,17 +12,17 @@ class LoadTemplate
 
     private function loader()
     {
-        $this->loader = new \Twig_Loader_Filesystem(PATH_VIEWS);
+        $this->loader = new FilesystemLoader(PATH_VIEWS);
         return $this->loader;
     }
 
     public function init()
     {
-        $twig = new \Twig_Environment($this->loader(), array(
+        $twig = new Environment($this->loader(), [
             'debug' => true,
             //'cache' => ROOT.'/cache/',
             'auto_reload' => true
-        ));
+        ]);
         return $twig;
     }
 }

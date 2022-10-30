@@ -25,8 +25,8 @@ class SistemaController extends BaseController
             'titulo' => 'Visualização',
             'sistema' => $sistema
         ];
-        $template = $this->twig->loadTemplate('sistema/view.html.twig');
-        $template->display($dados);
+        $template = $this->twig->load('sistema/view.html.twig');
+        echo $template->render($dados);
     }
 
     public function edit()
@@ -50,8 +50,9 @@ class SistemaController extends BaseController
                     'titulo' => 'Edição',
                     'sistema' => $sistema
                 ];
-                $template = $this->twig->loadTemplate('sistema/form.html.twig');
-                $template->display($dados);
+                $template = $this->twig->load('sistema/form.html.twig');
+                echo $template->render($dados);
+                exit();
             }
 
             $sistemaRepository->persist($_POST);
@@ -71,8 +72,8 @@ class SistemaController extends BaseController
                 'system_name' => 'Home Sweet Home',
                 'titulo' => 'Cadastro'
             ];
-            $template = $this->twig->loadTemplate('sistema/form.html.twig');
-            $template->display($dados);
+            $template = $this->twig->load('sistema/form.html.twig');
+            echo $template->render($dados);
 
         } catch (\Exception $e) {
             $_SESSION['mensagem'] = $e->getMessage();

@@ -10,7 +10,7 @@ class NotFoundController extends BaseController
         $dados = [
             'titulo' => 'Erro404'
         ];
-        $template = $this->twig->loadTemplate('error/404.html.twig');
-        echo $template->display($dados);
+        $template = $this->twig->load('error/404.html.twig');
+        echo $template->render($dados);
     }
 }
