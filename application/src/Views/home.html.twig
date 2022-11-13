@@ -17,9 +17,6 @@
                         <iframe src="{{ sistema.link }}" style="pointer-events: none; height: 300px;" scrolling="no"></iframe>
                         <div class="card-body p-2">
                             <div class="text-center">
-{#                                <a class="btn btn-outline-dark mt-auto" href="/sistema/view/id={{ sistema.id }}">#}
-{#                                    <i class="far fa-eye"></i> <b>Visualizar detalhes</b>#}
-{#                                </a>#}
                                 <a class="btn btn-outline-dark mt-auto" href="{{ sistema.link }}">
                                     <i class="fas fa-external-link-alt"></i> <b>{{ sistema.nome }}</b>
                                 </a>
@@ -28,11 +25,11 @@
                         </div>
                         <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto" href="/sistema/view/id={{ sistema.id }}">
+                                    <i class="far fa-eye"></i> Detalhes
+                                </a>
                                 <a class="btn btn-outline-dark mt-auto" href="/sistema/edit/id={{ sistema.id }}">
                                     <i class="far fa-edit"></i> Editar
-                                </a>
-                                <a class="btn btn-outline-dark mt-auto" href="/sistema/remove/id={{ sistema.id }}">
-                                    <i class="far fa-trash-alt"></i> Excluir
                                 </a>
                             </div>
                         </div>
