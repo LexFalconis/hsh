@@ -25,7 +25,7 @@ class Sistema
             $result = $pdo->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            die('err');
+            echo "Ocorreu um erro: " . PHP_EOL . $e->getMessage();
         }
     }
 
@@ -39,7 +39,7 @@ class Sistema
             $prepare->execute();
             return $prepare->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
-            die('err');
+            echo "Ocorreu um erro: " . PHP_EOL . $e->getMessage();
         }
     }
 
