@@ -2,8 +2,8 @@ version: "3"
 services:
     database:
         image: mysql:latest
-        container_name: hsh-database
-        hostname: hsh-database
+        container_name: hsh-database-dev
+        hostname: hsh-database-dev
         volumes:
             - db-data:/var/lib/mysql
         env_file:
@@ -12,12 +12,11 @@ services:
             - "3306:3306"
         networks:
             - hsh-network
-        restart: always
 
     application:
         build: ./containers/php
-        container_name: hsh-application
-        hostname: hsh-application
+        container_name: hsh-application-dev
+        hostname: hsh-application-dev
         working_dir: /var/www/html
         depends_on:
             - database
@@ -25,12 +24,11 @@ services:
             - ./application:/var/www/html
         networks:
             - hsh-network
-        restart: always
 
     webserver:
         build: ./containers/nginx
-        container_name: hsh-webserver
-        hostname: hsh-webserver
+        container_name: hsh-webserver-dev
+        hostname: hsh-webserver-dev
         depends_on:
             - application
         volumes:
@@ -39,7 +37,6 @@ services:
             - "80:80"
         networks:
             - hsh-network
-        restart: always
 
 volumes:
     db-data:
