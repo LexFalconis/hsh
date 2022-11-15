@@ -11,18 +11,32 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home"><i class="fas fa-home"></i> Home</a></li>
 {#                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>#}
-{#                    <li class="nav-item dropdown">#}
-{#                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"#}
-{#                           data-bs-toggle="dropdown" aria-expanded="false">Shop</a>#}
-{#                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">#}
-{#                            <li><a class="dropdown-item" href="#!">All Products</a></li>#}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-list"></i> Outros</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="/sistema/create">
+                                    <i class="fas fa-plus"></i> Cadastrar sistema
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/sistema">
+                                    <i class="fas fa-toggle-on"></i> Sistemas ativos
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/sistema/inative">
+                                    <i class="fas fa-toggle-off"></i> Sistemas inativos
+                                </a>
+                            </li>
 {#                            <li>#}
 {#                                <hr class="dropdown-divider"/>#}
 {#                            </li>#}
 {#                            <li><a class="dropdown-item" href="#!">Popular Items</a></li>#}
 {#                            <li><a class="dropdown-item" href="#!">New Arrivals</a></li>#}
-{#                        </ul>#}
-{#                    </li>#}
+                        </ul>
+                    </li>
                 </ul>
                 <form class="d-flex">
                     <a class="btn btn-outline-dark mt-auto" href="/sistema/create">

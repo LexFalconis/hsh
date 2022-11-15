@@ -5,6 +5,10 @@ namespace src\Auxiliary;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
+/**
+ * class LoadTemplate
+ * Classe para carregamento do twig
+ */
 class LoadTemplate
 {
     protected $twig;
@@ -20,7 +24,6 @@ class LoadTemplate
     {
         $twig = new Environment($this->loader(), [
             'debug' => true,
-            //'cache' => ROOT.'/cache/',
             'auto_reload' => true
         ]);
         return $twig;

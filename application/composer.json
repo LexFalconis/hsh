@@ -15,7 +15,9 @@
         "php": ">=8.0",
         "ext-pdo": "*",
         "vlucas/phpdotenv": "^5.5",
-        "twig/twig": "^3.4"
+        "twig/twig": "^3.4",
+        "knplabs/knp-snappy-bundle": "^1.9",
+        "ext-imagick": "*"
     },
     "autoload": {
         "psr-4": {

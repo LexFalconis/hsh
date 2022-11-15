@@ -205,3 +205,6 @@ fabric.properties
 db-data
 .idea
 application/vendor
+application/composer.lock
+application/public/assets/images/screenshots/*.*
+!application/public/assets/images/screenshots/.gitignore

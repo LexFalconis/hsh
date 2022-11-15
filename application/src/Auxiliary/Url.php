@@ -2,6 +2,9 @@
 
 namespace src\Auxiliary;
 
+/**
+ * class Url
+ */
 class Url
 {
     public static function getUrl()

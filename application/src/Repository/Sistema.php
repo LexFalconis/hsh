@@ -3,6 +3,7 @@
 namespace src\Repository;
 
 use PDO;
+use src\Controller\Tools\WkhtmlController;
 
 class Sistema
 {
@@ -11,14 +12,22 @@ class Sistema
      */
     private $pdo;
 
+    /**
+     * @param PDO $pdo
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function findAllActive()
+    /**
+     * Retorna uma coleção de sistemas com base no status
+     * @param $status
+     * @return \ArrayObject
+     */
+    private function findAllByStatus($status)
     {
-        $sistemas = (new \src\Dao\Sistema($this->pdo))->findAllActive();
+        $sistemas = (new \src\Dao\Sistema($this->pdo))->findAllByStatus($status);
 
         $dados = new \ArrayObject();
         foreach ($sistemas as $sistema) {
@@ -29,12 +38,35 @@ class Sistema
                     ->setLink($sistema['link'])
                     ->setNome($sistema['nome'])
                     ->setStatus($sistema['status'])
+                    ->setImagePath((new WkhtmlController())->getImagePathById($sistema['id']))
             );
         }
 
         return $dados;
     }
 
+    /**
+     * Retorna todos os sistemas cadastrados com status ativo
+     * @return \ArrayObject
+     */
+    public function findAllActive()
+    {
+        return $this->findAllByStatus(\src\Entity\Sistema::STATUS_ATIVO);
+    }
+
+    /**
+     * Retorna todos os sistemas cadastrados com status ativo
+     * @return \ArrayObject
+     */
+    public function findAllInative()
+    {
+        return $this->findAllByStatus(\src\Entity\Sistema::STATUS_INATIVO);
+    }
+
+    /**
+     * @param $id
+     * @return \src\Entity\Sistema
+     */
     public function findById($id)
     {
         $sistema = (new \src\Dao\Sistema($this->pdo))->findById($id);
@@ -45,9 +77,14 @@ class Sistema
             ->setLink($sistema['link'])
             ->setNome($sistema['nome'])
             ->setStatus($sistema['status'])
+            ->setImagePath((new WkhtmlController())->getImagePathById($sistema['id']))
         ;
     }
 
+    /**
+     * @param $dados
+     * @return bool|string
+     */
     public function persist($dados)
     {
         if (
@@ -61,6 +98,31 @@ class Sistema
         return (new \src\Dao\Sistema($this->pdo))->persist($dados);
     }
 
+    /**
+     * Altera o status de um sistema para inativo
+     * @param $id
+     * @return bool
+     */
+    public function disable($id)
+    {
+        return (new \src\Dao\Sistema($this->pdo))->disable($id);
+    }
+
+    /**
+     * Altera o status de um sistema para ativo
+     * @param $id
+     * @return bool
+     */
+    public function enable($id)
+    {
+        return (new \src\Dao\Sistema($this->pdo))->enable($id);
+    }
+
+    /**
+     * Deleta um registro com base no id
+     * @param $id
+     * @return bool
+     */
     public function remove($id)
     {
         return (new \src\Dao\Sistema($this->pdo))->remove($id);

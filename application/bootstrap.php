@@ -2,6 +2,13 @@
 
 require_once('vendor/autoload.php');
 require_once('src/Pdo/Connection.php');
+const ROOT_PATH = __DIR__ . DIRECTORY_SEPARATOR;
+const SCREENSHOTS_PATH = ROOT_PATH .
+    'public' . DIRECTORY_SEPARATOR .
+    'assets' . DIRECTORY_SEPARATOR .
+    'images' . DIRECTORY_SEPARATOR .
+    'screenshots' . DIRECTORY_SEPARATOR;
+
 try {
     $repository = Dotenv\Repository\RepositoryBuilder::createWithNoAdapters()
         ->addAdapter(Dotenv\Repository\Adapter\EnvConstAdapter::class)

@@ -47,14 +47,34 @@
         {% if sistema.status %}
         <div class="row justify-content-center" style="text-align: right">
             <div class="col-md-12">
+                <button type="button" class="btn btn-warning">
+                    <a href="/sistema/disable/id={{ sistema.id }}" style="color: #ffffff">
+                        <i class="fas fa-minus"></i> Desativar
+                    </a>
+                </button>
                 <button type="button" class="btn btn-danger" onclick="del({{ sistema.id }})">
                     <i class="far fa-trash-alt"></i> Excluir
                 </button>
             </div>
         </div>
+        {% else %}
+            <div class="row justify-content-center" style="text-align: right">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success">
+                        <a href="/sistema/enable/id={{ sistema.id }}" style="color: #ffffff">
+                            <i class="fas fa-plus"></i> Reativar
+                        </a>
+                    </button>
+                </div>
+            </div>
         {% endif %}
         <div class="row justify-content-center">
-            <div class="card-body col-md-8">
+            {% if sistema.imagePath %}
+                <div class="card-body col-md-6">
+                    <img src="{{ sistema.imagePath }}" class="image-sistema-view">
+                </div>
+            {% endif %}
+            <div class="card-body col-md-6">
                 <dt>ID:</dt>
                 <dd>{{ sistema.id }}</dd>
                 <dt>NOME:</dt>
@@ -65,7 +85,13 @@
                 <dt>DESCRIÇÃO:</dt>
                 <dd>{{ sistema.descricao }}</dd>
                 <dt>STATUS:</dt>
-                <dd>{{ sistema.getStatusToHuman }}</dd>
+                {% set status = 'danger' %}
+                {% if sistema.status %}
+                    {% set status = 'success' %}
+                {% endif %}
+                <dd class="text-{{ status }}">
+                    {{ sistema.getStatusToHuman }}
+                </dd>
             </div>
         </div>
         <div class="row justify-content-center">

@@ -5,6 +5,9 @@ namespace src\Controller;
 use src\Auxiliary\AddSlashUrl;
 use src\Auxiliary\Url;
 
+/**
+ * class BaseController
+ */
 class BaseController
 {
     protected $url;

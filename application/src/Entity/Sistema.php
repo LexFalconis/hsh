@@ -35,6 +35,11 @@ class Sistema
     private $status;
 
     /**
+     * @var string|null
+     */
+    private $imagePath;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -66,7 +71,7 @@ class Sistema
      */
     public function setNome(string $nome): Sistema
     {
-        $this->nome = $nome;
+        $this->nome = trim($nome);
         return $this;
     }
 
@@ -84,7 +89,7 @@ class Sistema
      */
     public function setLink(string $link): Sistema
     {
-        $this->link = $link;
+        $this->link = trim($link);
         return $this;
     }
 
@@ -102,7 +107,7 @@ class Sistema
      */
     public function setDescricao(string $descricao): Sistema
     {
-        $this->descricao = $descricao;
+        $this->descricao = trim($descricao);
         return $this;
     }
 
@@ -142,5 +147,23 @@ class Sistema
             self::STATUS_ATIVO => self::STATUS_ATIVO_LABEL,
             self::STATUS_INATIVO => self::STATUS_INATIVO_LABEL
         ];
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImagePath(): ?string
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param string|null $imagePath
+     * @return Sistema
+     */
+    public function setImagePath(?string $imagePath): Sistema
+    {
+        $this->imagePath = $imagePath;
+        return $this;
     }
 }

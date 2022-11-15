@@ -6,11 +6,15 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update --yes
 RUN apt-get install --yes
-RUN apt-get install --yes autoconf
-RUN apt-get install --yes git
-RUN apt-get install --yes curl
-RUN apt-get install --yes zip
-RUN apt-get install --yes wget
+RUN apt-get install --yes autoconf \
+    git \
+    curl \
+    zip \
+    wget \
+    wkhtmltopdf \
+    libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
 
 RUN docker-php-ext-install \
     mysqli \

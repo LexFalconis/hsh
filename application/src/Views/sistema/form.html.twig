@@ -4,7 +4,6 @@
 {% block head %}
     <style>
         a, a:active, a:hover {
-            margin: 0px 10px;
             text-decoration: none;
             color: #000;
         }
@@ -13,62 +12,71 @@
 {% block content %}
     <div class="container px-4 px-lg-5 mt-0">
         <div class="row justify-content-center">
-            {% if sistema.id %}
-            <form method="post" action="/sistema/edit/id={{ sistema.id }}">
-                <input type="hidden" name="id" value="{{ sistema.id }}">
-            {% else %}
-                <form method="post" action="/sistema/insert">
+            {% if sistema.imagePath %}
+                <div class="card-body col-md-6">
+                    <img src="{{ sistema.imagePath }}" class="image-sistema-view">
+                </div>
             {% endif %}
-                <div class="form-group mt-3">
-                    <label for="nome">Nome</label>
-                    <input type="text" class="form-control" id="nome" name="nome"
-                           {% if sistema.nome %}value="{{ sistema.nome }}"{% endif %}
-                            maxlength="45" required
-                    >
-                </div>
-                <div class="form-group mt-3">
-                    <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link"
-                           {% if sistema.link %}value="{{ sistema.link }}"{% endif %}
-                            maxlength="255" required
-                    >
-                </div>
-                <div class="form-group mt-3">
-                    <label for="descricao">Descrição</label>
-                    <input type="text" class="form-control" id="descricao" name="descricao"
-                           {% if sistema.descricao %}value="{{ sistema.descricao }}"{% endif %}
-                            maxlength="255" required
-                    >
-                </div>
-                {% if sistema.id %}
+            <div class="card-body col-md-6">
+                <form method="post"
+                    {% if sistema.id %}
+                        action="/sistema/edit/id={{ sistema.id }}" >
+                        <input type="hidden" name="id" value="{{ sistema.id }}">
+                    {% else %}
+                        action="/sistema/insert" >
+                    {% endif %}
+
                     <div class="form-group mt-3">
-                        <label for="status">Status</label>
-                        <select class="form-control" id="status" name="status">
-                            {% for key, stts in sistema.getStatusList %}
-                                <option value="{{ key }}"
-                                        {% if sistema.status == key %}selected{% endif %}
-                                >{{ stts }}</option>
-                            {% endfor %}
-                        </select>
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control" id="nome" name="nome"
+                               {% if sistema.nome %}value="{{ sistema.nome }}"{% endif %}
+                               maxlength="45" required
+                        >
                     </div>
-                {% endif %}
-                <button type="submit" class="btn btn-primary mt-3">
+                    <div class="form-group mt-3">
+                        <label for="link">Link</label>
+                        <input type="text" class="form-control" id="link" name="link"
+                               {% if sistema.link %}value="{{ sistema.link }}"{% endif %}
+                               maxlength="255" required
+                        >
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="descricao">Descrição</label>
+                        <input type="text" class="form-control" id="descricao" name="descricao"
+                               {% if sistema.descricao %}value="{{ sistema.descricao }}"{% endif %}
+                               maxlength="255" required
+                        >
+                    </div>
                     {% if sistema.id %}
-                        <i class="far fa-edit"></i> Editar
-                    {% else %}
-                        <i class="fas fa-check"></i> Cadastrar
+                        <div class="form-group mt-3">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" name="status">
+                                {% for key, stts in sistema.getStatusList %}
+                                    <option value="{{ key }}"
+                                            {% if sistema.status == key %}selected{% endif %}
+                                    >{{ stts }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     {% endif %}
-                </button>
-                <button type="button" class="btn btn-secondary mt-3" style="float: right">
-                    {% if sistema.id %}
-                        <a href="/sistema/view/id={{ sistema.id }}" style="color: #ffffff">
-                            <i class="far fa-window-close"></i> Cancelar
-                        </a>
-                    {% else %}
-                        <a href="/home/index" style="color: #ffffff"><i class="fas fa-home"></i> Home</a>
-                    {% endif %}
-                </button>
-            </form>
+                    <button type="submit" class="btn btn-primary mt-3">
+                        {% if sistema.id %}
+                            <i class="far fa-edit"></i> Salvar
+                        {% else %}
+                            <i class="fas fa-check"></i> Cadastrar
+                        {% endif %}
+                    </button>
+                    <button type="button" class="btn btn-secondary mt-3" style="float: right">
+                        {% if sistema.id %}
+                            <a href="/sistema/view/id={{ sistema.id }}" style="color: #ffffff">
+                                <i class="far fa-window-close"></i> Cancelar
+                            </a>
+                        {% else %}
+                            <a href="/home/index" style="color: #ffffff"><i class="fas fa-home"></i> Home</a>
+                        {% endif %}
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

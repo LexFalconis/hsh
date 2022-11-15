@@ -10,6 +10,7 @@ class Connection
     public static $instance;
 
     /**
+     * Retorna uma instância do PDO
      * @return PDO
      */
     public static function getInstance()

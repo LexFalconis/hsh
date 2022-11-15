@@ -9,3 +9,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/lang/pt-BR/
 - Adicionado docker e docker-compose;
 - Adicionado estrutura com controllers, dao e repository;
 - Adicionado informações de como executar o projeto no readme;
+- Adicionado controller para obter uma thumbnail do sistema cadastrado;

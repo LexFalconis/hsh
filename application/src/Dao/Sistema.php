@@ -4,6 +4,8 @@ namespace src\Dao;
 
 use Exception;
 use PDO;
+use src\Entity\Sistema as SistemaEntity;
+use src\Exception\NotFoundException;
 
 class Sistema
 {
@@ -12,16 +14,23 @@ class Sistema
      */
     private $pdo;
 
+    /**
+     * @param PDO $pdo
+     */
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
-    public function findAllActive()
+    /**
+     * Retorna todos os sistemas cadastrados com base no status
+     * @return array|false|void
+     */
+    public function findAllByStatus($status)
     {
         try {
             $pdo = $this->pdo;
-            $sql = 'select * from sistema where status = true';
+            $sql = "select * from sistema where status = {$status}";
             $result = $pdo->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
@@ -29,6 +38,10 @@ class Sistema
         }
     }
 
+    /**
+     * @param $id
+     * @return mixed|void
+     */
     public function findById($id)
     {
         try {
@@ -37,12 +50,24 @@ class Sistema
             $prepare = $pdo->prepare($sql);
             $prepare->bindValue(":id", $id, PDO::PARAM_INT);
             $prepare->execute();
-            return $prepare->fetch(PDO::FETCH_ASSOC);
+
+            $data = $prepare->fetch(PDO::FETCH_ASSOC);
+
+            if (false === $data) {
+                throw new NotFoundException();
+            }
+            return $data;
+        } catch (NotFoundException $e) {
+            throw new NotFoundException('Não foi encontrado nenhum registro com o Id ' . $id);
         } catch (Exception $e) {
             echo "Ocorreu um erro: " . PHP_EOL . $e->getMessage();
         }
     }
 
+    /**
+     * @param $dados
+     * @return bool|string
+     */
     public function persist($dados)
     {
         if (key_exists('id', $dados) and !empty($dados['id'])) {
@@ -51,6 +76,10 @@ class Sistema
         return $this->insert($dados);
     }
 
+    /**
+     * @param $dados
+     * @return bool
+     */
     public function update ($dados)
     {
         try {
@@ -77,6 +106,10 @@ class Sistema
         }
     }
 
+    /**
+     * @param $dados
+     * @return false|string
+     */
     public function insert ($dados)
     {
         try {
@@ -108,7 +141,32 @@ class Sistema
         }
     }
 
-    public function remove ($id)
+    /**
+     * Altera o status de um sistema para inativo
+     * @param $id
+     * @return bool
+     */
+    public function disable ($id)
+    {
+        return $this->updateStatus($id, SistemaEntity::STATUS_INATIVO);
+    }
+
+    /**
+     * Altera o status de um sistema para ativo
+     * @param $id
+     * @return bool
+     */
+    public function enable ($id)
+    {
+        return $this->updateStatus($id, SistemaEntity::STATUS_ATIVO);
+    }
+
+    /**
+     * @param $id
+     * @param $status
+     * @return bool
+     */
+    private function updateStatus ($id, $status)
     {
         try {
             $sql = "
@@ -119,12 +177,32 @@ class Sistema
             $pdo = $this->pdo;
             $prepare = $pdo->prepare($sql);
 
-            $prepare->bindValue(":status", \src\Entity\Sistema::STATUS_INATIVO);
+            $prepare->bindValue(":status", $status);
             $prepare->bindValue(":id", $id);
 
             return $prepare->execute();
         } catch (Exception $e) {
             throw new \DomainException("Ocorreu um erro ao tentar executar a atualização dos dados. " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Deleta um registro com base no id
+     * @param $id
+     * @return bool
+     */
+    public function remove ($id)
+    {
+        try {
+            $sql = "DELETE FROM sistema WHERE id = :id";
+            $pdo = $this->pdo;
+            $prepare = $pdo->prepare($sql);
+
+            $prepare->bindValue(":id", $id);
+
+            return $prepare->execute();
+        } catch (Exception $e) {
+            throw new \DomainException("Ocorreu um erro ao tentar executar a remoção dos dados. " . $e->getMessage());
         }
     }
 }

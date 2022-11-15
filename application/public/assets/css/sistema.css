@@ -1,0 +1,8 @@
+.image-sistema, .image-sistema-view {
+	max-width: 100%;
+}
+
+.image-sistema-view {
+	border: rgba(33, 37, 41) 1px dashed;
+	border-radius: 20px;
+}

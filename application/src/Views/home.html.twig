@@ -3,27 +3,33 @@
 {% block titulo %}{{ titulo }}{% endblock %}
 {% block content %}
 
-    <div class="container px-4 px-lg-5 mt-5">
+    <div class="container px-4 px-lg-5 mt-1">
         <div class="row justify-content-center">
-            {% if sistemas is empty %}
+            {% if mensagem %}
                 <div class="alert alert-warning" role="alert">
-                    Hummmm, ainda não temos nenhum link/sistema cadastrado.
-                    Clica ali no botão do lado superior direito para cadastrar nosso primeiro sistema.
+                    {{ mensagem }}
                 </div>
             {% endif %}
             {% for sistema in sistemas %}
                 <div class="col-md-4 mb-4">
-                    <div class="card h-100 thumbnail">
-                        <iframe src="{{ sistema.link }}" style="pointer-events: none; height: 300px;" scrolling="no"></iframe>
-                        <div class="card-body p-2">
+                    <div class="card h-100">
+                        {% if sistema.imagePath %}
+                            <img src="{{ sistema.imagePath }}" class="image-sistema">
+                        {% else %}
+                            <iframe src="{{ sistema.link }}" style="pointer-events: none; height: 300px;" scrolling="no"></iframe>
+                        {% endif %}
+                        <div class="card-body p-1">
                             <div class="text-center">
                                 <a class="btn btn-outline-dark mt-auto" href="{{ sistema.link }}">
                                     <i class="fas fa-external-link-alt"></i> <b>{{ sistema.nome }}</b>
                                 </a>
-                                <p class="mt-3">{{ sistema.descricao }}</p>
+                                {% if sistema.status == false %}
+                                    <p class="text-danger">{{ sistema.getStatusToHuman }}</p>
+                                {% endif %}
+                                <p class="mt-1">{{ sistema.descricao }}</p>
                             </div>
                         </div>
-                        <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
+                        <div class="card-footer pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
                                 <a class="btn btn-outline-dark mt-auto" href="/sistema/view/id={{ sistema.id }}">
                                     <i class="far fa-eye"></i> Detalhes
